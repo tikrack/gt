@@ -1,9 +1,21 @@
 @echo off
-echo Arguments received:
-shift
-:loop
-if "%~1"=="" goto end
-echo %1
-shift
-goto loop
-:end
+setlocal
+
+if "%~1"=="" (
+    echo Usage: gt "commit message"
+    exit /b
+)
+
+set COMMIT_MSG=%~1
+
+echo Running git commands...
+echo [git add .]
+git add .
+
+echo [git commit -m "%COMMIT_MSG%"]
+git commit -m "%COMMIT_MSG%"
+
+echo [git push]
+git push
+
+endlocal
